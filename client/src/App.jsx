@@ -57,7 +57,10 @@ function App() {
         {error?.error && <p>{error?.error}</p>}
 
         {!error?.message && data?.short_url && (
-          <a href={`${data?.original_url}`} target="_blank">
+          <a
+            href={`http://localhost:3001/id/${data?.short_url_id}`}
+            target="_blank"
+          >
             {data.short_url}
           </a>
         )}

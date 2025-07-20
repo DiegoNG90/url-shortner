@@ -14,10 +14,14 @@ function urlShortnerController(req, res, next) {
   console.log('randomId', randomId);
 
   const stmt = db.prepare(`
-    INSERT INTO url (original_url, short_url)
-    VALUES (?, ?)`);
+    INSERT INTO url (original_url, short_url, short_url_id)
+    VALUES (?, ?, ?)`);
 
-  const { lastInsertRowid } = stmt.run(url, `${shortUrlBase}/${randomId}`);
+  const { lastInsertRowid } = stmt.run(
+    url,
+    `${shortUrlBase}/${randomId}`,
+    randomId
+  );
 
   const insertedRecord = db
     .prepare('SELECT * FROM url WHERE id = ?')
