@@ -9,7 +9,7 @@ function redirectToOriginalUrlByShortId(req, res, next) {
     return next({ error: 'Id is required', statusCode: 403 });
   }
 
-  const stmt = db.prepare('SELECT * FROM url WHERE short_url_id = ?').get(id);
+  const stmt = db.prepare('SELECT * FROM url WHERE id = ?').get(id);
 
   if (!stmt) {
     if (!id) {
