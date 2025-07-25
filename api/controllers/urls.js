@@ -4,6 +4,8 @@ const { randomBytes } = require('crypto');
 function urlShortnerController(req, res, next) {
   const { url } = req.body;
 
+  console.log('url ??', url);
+
   if (!url) {
     return next({ error: 'URL is required', statusCode: 400 });
   }
@@ -14,16 +16,12 @@ function urlShortnerController(req, res, next) {
   console.log('randomId', randomId);
 
   const stmt = db.prepare(`
-    INSERT INTO url (original_url, short_url)
+    INSERT INTO url (id, original_url)
     VALUES (?, ?)`);
 
-  const { lastInsertRowid } = stmt.run(url, `${shortUrlBase}/${randomId}`);
+  stmt.run(randomId, url);
 
-  const insertedRecord = db
-    .prepare('SELECT * FROM url WHERE id = ?')
-    .get(lastInsertRowid);
-
-  res.json(insertedRecord);
+  res.json({ id: randomId, shortUrl: `${shortUrlBase}/${randomId}` });
 }
 
 module.exports = urlShortnerController;

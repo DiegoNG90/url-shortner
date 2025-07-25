@@ -5,6 +5,7 @@ const morgan = require('morgan');
 
 const urlShortnerController = require('./controllers/urls.js');
 const handleErrorMiddleware = require('./middlewares/error.js');
+const redirectToOriginalUrlByShortId = require('./controllers/redirectToOriginalUrlByShortId.js');
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.post('/form-sent', urlShortnerController);
+
+app.get('/id/:id', redirectToOriginalUrlByShortId);
 
 app.use(handleErrorMiddleware);
 
