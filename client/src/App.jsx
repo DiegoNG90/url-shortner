@@ -6,9 +6,6 @@ function App() {
   const [data, setData] = React.useState({});
   const [error, setError] = React.useState({});
 
-  console.log('data', data);
-  console.log('error', error);
-
   function handleSendOriginalUrl(e) {
     e.preventDefault();
 
